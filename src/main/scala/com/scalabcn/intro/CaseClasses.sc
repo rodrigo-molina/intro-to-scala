@@ -11,5 +11,5 @@ class MyClass(val a: String, val c: Boolean) {
 object MyClass {
   def apply(a: String, c: Boolean): Unit = new MyClass(a, c)
   def unapply(myClass: MyClass): Option[(String, Boolean)] = ???
-  // AKA def unapply(myClass: MyClass): Option[Tuple2[String, Boolean]] = ???
+  // AKA def unapply(myClass: MyClass): Option[Tuple2[String, Boolean]  ] = ???
 }
