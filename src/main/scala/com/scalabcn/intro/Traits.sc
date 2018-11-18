@@ -1,32 +1,36 @@
-trait TraitSample {
-  var x = 1
-
-  def mutateX(newX:Int) = this.x = newX
-  def showMe(): String = s"Current x value: $x"
+abstract class A {
+  val message: String
 }
 
-// Anonymous class
-val aTrait: TraitSample = new TraitSample {}
-val otherTrait: TraitSample = new TraitSample {}
-
-aTrait.showMe
-aTrait.mutateX(2)
-aTrait.showMe
-otherTrait.showMe
-
-
-sealed trait Runner {
-  def runVelocity:Int
-  def run  = println(s"I'm running at $runVelocity")
+trait B extends A {
+  val message = "I'm an instance of class B"
 }
 
-sealed trait Flyer {
-  def flyVelocity:Int
-  def fly  = println(s"I'm flying at $flyVelocity")
+trait C extends A {
+  val loudMessage = message.toUpperCase()
 }
 
-case class Duck(runVelocity: Int, flyVelocity: Int) extends Runner with Flyer
+class D extends B with C
 
-val duck = Duck(5, 10)
-duck.fly
-duck.run
+val d = new D
+println(d.message)
+println(d.loudMessage)
+
+// Construction
+trait TBase                         {print("TBase=> ")}
+trait T1 extends TBase              {print("T1=> ")}
+trait T2 extends TBase              {print("T2=> ")}
+trait T3 extends T1 with TBase      {print("T3=> ")}
+class AA extends T1 with T2 with T3 {print("AA")}
+
+val a = new AA
+
+
+// Linearization
+trait TTBase                            {def foo: Unit = {print(s"=> TTBase")}}
+trait TT1 extends TTBase                {override def foo: Unit = {print(s"=>  TT1"); super.foo}}
+trait TT2 extends TTBase                {override def foo: Unit = {print(s"=>  TT2"); super.foo}}
+trait TT3 extends TT1 with TTBase       {override def foo: Unit = {print(s"=>  TT3"); super.foo}}
+class AAA extends TT1 with TT2 with TT3 {override def foo: Unit = {print(s"AAA"); super.foo}}
+
+val aaa = new AAA().foo
