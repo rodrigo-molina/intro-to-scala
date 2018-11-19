@@ -19,8 +19,8 @@ persons match {
 }
 
 val t = ("Victor & Rodrigo", true)
-val(name, likesJava) = t
-s"It's $likesJava that $name like scala"
+val(name, likesScala) = t
+s"It's $likesScala that $name like scala"
 
 // Partial function
 val print3: PartialFunction[Int, Unit] = {
